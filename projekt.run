@@ -1,0 +1,6 @@
+reset;
+model projekt.mod;
+data projekt.dat;
+option solver cplex;
+solve;
+display Koszt;
