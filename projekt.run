@@ -3,4 +3,4 @@ model projekt.mod;
 data projekt.dat;
 option solver cplex;
 solve;
-display Koszt;
+display: obciazenie, pracujace, przeciazone;
