@@ -9,4 +9,6 @@ a <- (alpha - mu) / stddev
 b <- (beta - mu) / stddev
 
 expected <- mu + stddev * gamma((v-1)/2) * ((v+a^2)^(-(v-1)/2) - (v+b^2)^(-(v-1)/2)) * v^(v/2) / 2 / (pt(b, v) - pt(a, v)) / gamma(v/2) / gamma(1/2)
-print(expected)
+
+sink("zad1.dat")
+cat("param koszt_dodatkowego_mw := T1 ", expected[1], " T2 ", expected[2], " T3 ", expected[3], ";\n", sep="")

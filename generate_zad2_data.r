@@ -9,9 +9,9 @@ mu <- c(2.5, 1.5, 3.5)
 sigma <- matrix(c(1, -2, -1, -2, 25, -8, -1, -8, 9), ncol=3, nrow=3)
 count <- 20
 
-sink("scenarios.dat")
-cat("set SCENARIUSZE = 1:", count, ";\n\n", sep="")
-cat("param koszt_dodatkowego_mw =\n")
+sink("zad2.dat")
+cat("param liczba_scenariuszy := ", count, ";\n\n", sep="")
+cat("param koszt_dodatkowego_mw: T1 T2 T3 :=\n")
 
 scenario <- 1
 while (scenario <= count) {

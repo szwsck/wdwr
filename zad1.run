@@ -1,13 +1,10 @@
 reset;
-model projekt.mod;
+
+model zad1.mod;
 data projekt.dat;
+data zad1.dat;
+
 option solver cplex;
-
-data; 
-param koszt_dodatkowego_mw = 
-    T1 2.655467 
-    T2 2.906804
-    T3 3.080570; # obliczone ze wartosci oczekiwanej zawezonego rozkladu
-
 solve;
+
 display: obciazenie, pracujace, przeciazone;

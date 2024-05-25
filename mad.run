@@ -1,0 +1,12 @@
+reset;
+option solver cplex;
+model mad.mod;
+
+data;
+param liczba_scenariuszy := 20;
+
+data realizacje.dat;
+
+solve;
+
+display odchylenie_dodatnie, odchylenie_ujemne;

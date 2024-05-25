@@ -1,7 +1,10 @@
 
 # --- parametry ---
+param liczba_scenariuszy;
+
 set TYPY;
 set GODZINY = 0..23, circular;
+set SCENARIUSZE = 1..liczba_scenariuszy;
 
 param zapotrzebowanie{GODZINY};
 param liczba_gen{TYPY}, integer;
@@ -9,15 +12,17 @@ param min_obciazenie{TYPY};
 param max_obciazenie{TYPY};
 param prog_przeciazenia;
 param koszt_min_obc{TYPY};
-param koszt_dodatkowego_mw{TYPY};
+param koszt_dodatkowego_mw{TYPY, SCENARIUSZE};
 param koszt_uruchomienia{TYPY};
 param koszt_pracy_w_przeciazeniu;
 param max_wzrost_zapotrzebowania;
 
-# --- zmienne decyzyjne ---
+# --- zmienne ---
 var pracujace{GODZINY, TYPY} >= 0, integer; # ile generatorow danego typu jest wlaczonych o danej godzinie
 var przeciazone{GODZINY, TYPY} >= 0, integer; # ...i ile z nich dziala w zakresie 90-100% obciazenia
-var obciazenie{GODZINY, TYPY} >= 0; # laczne obciazenie generatorow danego typ o danej godzinie (rozklad obciazenia miedzy nimi nieistotny)
+var obciazenie{GODZINY, TYPY} >= 0; # laczne obciazenie generatorow danego typu o danej godzinie (rozklad obciazenia miedzy nimi nieistotny)
+var uruchomienia{GODZINY, TYPY} >= 0, integer; # ile generatorow danego typu zostalo uruchomionych o danej godzinie
+var wylaczenia{GODZINY, TYPY} >= 0, integer;   # ile generatorow danego typu zostalo wylaczonych o danej godzinie
 
 # --- ograniczenia ---
 
@@ -50,11 +55,10 @@ subject to dostepnosc_przeciazonych_gen{godz in GODZINY, typ in TYPY}:
     przeciazone[godz, typ] <= pracujace[godz, typ];
 
 # liczbe uruchomien wyznaczamy jako dodatnia czesc roznicy w liczbie pracujacych generatorow wzgledem poprzedniej godziny (mod 24)
-var uruchomienia{GODZINY, TYPY} >= 0, integer; # odchylka dodatnia
-var wylaczenia{GODZINY, TYPY} >= 0, integer;   # odchylka ujemna
 subject to zmiana_liczby_pracujacych_gen{godz in GODZINY, typ in TYPY}:
     pracujace[godz, typ] = pracujace[prev(godz),typ] + uruchomienia[godz, typ] - wylaczenia[godz, typ];
 
+# --- funkcja celu ---
 minimize Koszt:
     sum{godz in GODZINY, typ in TYPY} (
         + uruchomienia[godz, typ] * koszt_uruchomienia[typ] # jednorazowe koszty uruchomienia
