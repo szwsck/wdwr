@@ -1,0 +1,16 @@
+reset;
+option solver cplex;
+model projekt.mod;
+data projekt.dat;
+
+param liczba_scenariuszy;
+set SCENARIUSZE = 1 .. liczba_scenariuszy;
+param koszt_dodatkowego_mw_w_scenariuszu{SCENARIUSZE, TYPY};
+data scenarios.dat;
+
+printf: "" > realizacje.csv;
+for {s in SCENARIUSZE} {
+    let{t in TYPY} koszt_dodatkowego_mw[t] := koszt_dodatkowego_mw_w_scenariuszu[s, t];
+    solve;
+    printf: "%.4f, %.4f, %.4f, %.4f\n" , koszt_dodatkowego_mw["T1"], koszt_dodatkowego_mw["T2"], koszt_dodatkowego_mw["T3"], Koszt >> realizacje.csv;
+};

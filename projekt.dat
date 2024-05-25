@@ -46,11 +46,6 @@ param koszt_min_obc =
     T2 2500
     T3 3200;
 
-param koszt_dodatkowego_mw = 
-    T1 2.655467 
-    T2 2.906804
-    T3 3.080570; # obliczone ze wartosci oczekiwanej zawezonego rozkladu
-
 param koszt_uruchomienia = 
     T1 2000
     T2 1500

@@ -9,13 +9,16 @@ mu <- c(2.5, 1.5, 3.5)
 sigma <- matrix(c(1, -2, -1, -2, 25, -8, -1, -8, 9), ncol=3, nrow=3)
 count <- 20
 
-samples <- list()
-while (length(samples) < count) {
+sink("scenarios.dat")
+cat("set SCENARIUSZE = 1:", count, ";\n\n", sep="")
+cat("param koszt_dodatkowego_mw =\n")
+
+scenario <- 1
+while (scenario <= count) {
     sample <- mu + rmvt(1, sigma=sigma, df=v)
     if (min(sample) < alpha || max(sample) > beta) next
-    samples <- append(samples, list(sample))
+    cat("\t", scenario," ", sample[1]," ", sample[2], " ",sample[3], "\n", sep="")
+    scenario <- scenario + 1
 }
 
-samples <- do.call(rbind, samples)
-print(samples)
-write.table(samples, 'scenarios.csv', sep=',', col.names=FALSE, row.names=FALSE)
+cat(";")
