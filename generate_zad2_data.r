@@ -7,9 +7,9 @@ beta <- 5
 v <- 4
 mu <- c(2.5, 1.5, 3.5)
 sigma <- matrix(c(1, -2, -1, -2, 25, -8, -1, -8, 9), ncol=3, nrow=3)
-count <- 20
+count <- 1000
 
-sink("zad2.dat")
+sink("zad2_1000.dat")
 cat("param liczba_scenariuszy := ", count, ";\n\n", sep="")
 cat("param koszt_dodatkowego_mw: T1 T2 T3 :=\n")
 
