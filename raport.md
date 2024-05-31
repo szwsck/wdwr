@@ -12,19 +12,19 @@ $\mathbb{E}(\textbf{R}_1)=2.655467 \\
 \mathbb{E}(\textbf{R}_2)=2.906804 \\
 \mathbb{E}(\textbf{R}_3)=3.080570$
 
-### Model analityczny
-
-#### Przyjęte założenia
+### Przyjęte założenia
 
 * Elektrownia działa w sposób ciągły, a więc po godzinie 23 następuje godzina 0. Koszt pierwotnego włączenia generatorów jest pomijany.
 * Generator może znajdować się w jednym z trzech stanów:
-    * 0MW - wyłączone
-    * od obciążenia min. do 90% obciążenia max. - pracujące w normalnym zakresie
-    * od 90% obciążenia max. do obciążenia max. - pracujące w przeciążeniu
-* Generatory danego typu w danym stanie są nierozróżnialne, a rozkład obciążenia między nimi nieistotny. Ważna jest jedynie ich sumaryczne obciążenie. 
+    * 0MW - wyłączony
+    * od obciążenia min. do 90% obciążenia max. - pracujący w normalnym zakresie
+    * od 90% obciążenia max. do obciążenia max. - pracujący w przeciążeniu
+* Generatory danego typu w danym stanie są nierozróżnialne, a rozkład obciążenia między nimi nieistotny. Ważne jest jedynie ich sumaryczne obciążenie. 
 
-#### Zmienne
-Dla wszystkich zmiennych $g\in [0..23]$ oraz $t\in\set{1, 2, 3}$
+### Zmienne
+
+Dla wszystkich zmiennych $g\in [0..23]$ oraz $t\in\{1, 2, 3\}$
+
 | Zmienna                              | Opis                                                                            |
 |:------------------------------------ | ------------------------------------------------------------------------------- |
 | $w_{gt} \in \mathbb{N}_0$            | Liczba generatorów typu $t$ pracujących (w przeciążeniu lub nie) o godzinie $g$ |
@@ -33,7 +33,7 @@ Dla wszystkich zmiennych $g\in [0..23]$ oraz $t\in\set{1, 2, 3}$
 | $(\Delta w_{gt})_+ \in \mathbb{N}_0$ | Liczba generatorów typu $t$ uruchomiona o godzinie $g$                          |
 | $(\Delta w_{gt})_- \in \mathbb{N}_0$ | Liczba generatorów typu $t$ wyłączona o godzinie $g$                            | 
 
-#### Ograniczenia
+### Ograniczenia
 
 Dolne ograniczenie obciążenia:
 
@@ -49,11 +49,11 @@ $\forall g \in [0..23]\quad o_{g1} \le 2000 \cdot (0.9(w_{g1}-p_{g1}) + p_{g1}) 
 
 Zaspokojenie bazowego zapotrzebowania:
 
-$\forall g \in [0..6)  \quad \sum_{t\in\set{1,2,3}}o_{gt} = 15000 \\
-\forall g \in [6..9)  \quad \sum_{t\in\set{1,2,3}}o_{gt} = 35000 \\
-\forall g \in [9..15) \quad \sum_{t\in\set{1,2,3}}o_{gt} = 20000 \\
-\forall g \in [15..18)\quad \sum_{t\in\set{1,2,3}}o_{gt} = 45000 \\
-\forall g \in [18..24)\quad \sum_{t\in\set{1,2,3}}o_{gt} = 20000$
+$\forall g \in [0..6)  \quad \sum_{t\in\{1,2,3\}}o_{gt} = 15000 \\
+\forall g \in [6..9)  \quad \sum_{t\in\{1,2,3\}}o_{gt} = 35000 \\
+\forall g \in [9..15) \quad \sum_{t\in\{1,2,3\}}o_{gt} = 20000 \\
+\forall g \in [15..18)\quad \sum_{t\in\{1,2,3\}}o_{gt} = 45000 \\
+\forall g \in [18..24)\quad \sum_{t\in\{1,2,3\}}o_{gt} = 20000$
 
 Możliwość pokrycia wzrostu zapotrzebowania przez pracujące generatory:
 
@@ -68,13 +68,14 @@ Dostępność generatorów:
 $\forall g \in [0..23]\quad w_{g1} \le 16 \\
 \forall g \in [0..23]\quad w_{g2} \le 14 \\
 \forall g \in [0..23]\quad w_{g3} \le 12 \\
-\forall g \in [0..23]\; \forall t \in \set{1,2,3}\quad p_{gt} \le w_{gt}$
+\forall g \in [0..23]\; \forall t \in \{1,2,3\}\quad p_{gt} \le w_{gt}$
 
 Uruchamianie i wyłączanie generatorów (założenie $g_{(-1),t} = g_{23,t}$):
 
-$\forall g \in [0..23]\; \forall t \in \set{1,2,3}\quad w_{gt} = w_{(g-1),t} + (\Delta w_{gt})_+ - (\Delta w_{gt})_-$
+$\forall g \in [0..23]\; \forall t \in \{1,2,3\}\quad w_{gt} = w_{(g-1),t} + (\Delta w_{gt})_+ - (\Delta w_{gt})_-$
 
-#### Funkcja celu
+### Funkcja celu
+
 $\min K$ , gdzie:
 
 $K=K_1 + K_2 + K_3 + K_4$
@@ -94,7 +95,7 @@ $K_3=\sum_{g \in [0..23]} (2.655467(o_{g1}-1000w_{g1}) + 2.906804(o_{g2}-1300w_{
 
 Koszt pracy w przeciążeniu:
 
-$K_4=\sum_{g \in [0..23]}\;\sum_{t \in \set{1,2,3}}\;200p_{gt}$
+$K_4=\sum_{g \in [0..23]}\;\sum_{t \in \{1,2,3\}}\;200p_{gt}$
 
 ### Rozwiązanie i wnioski
 
@@ -102,9 +103,11 @@ Powyższy model zaimplementowałem w języku AMPL (pliki `zad1.mod`, `projekt.da
 
 Poniżej przedstawiłem wykres rozkładu obciążenia $o_{gt}$ w ciągu doby: 
 
-![chart](godzina-obciazenie.png)
+![Rozkład obciążenia na typy generatorów w kolejnych godzinach](godzina-obciazenie.png)
 
 Większość obciążenia jest pokryta przez generatory T1. Jest to uzasadnione tym, że cechują się one najtańszą ceną zł/MW przy minimalnym obciążeniu. Wysoki koszt uruchomienia nie ma dużego znaczenia, bo działają one całą dobę bez przerwy. Dopiero gdy skończyły się dostępne generatory T1, uruchomione zostały T2 i T3.
+
+\pagebreak
 
 Następnie przeanalizowałem liczbę pracujących i przeciążonych generatorów:
 
@@ -142,14 +145,14 @@ Następnie przeanalizowałem liczbę pracujących i przeciążonych generatorów
 W drugim zadaniu należało dodatkowo uwzględnić ryzyko rozwiązania zdefiniowane jako odchylenie przeciętne. Jest to zadanie dwukrytyrialne, dlatego do wyznaczenia rozwiązań efektywnych niezbędny był wybór funkcji skalaryzującej.
 
 W pierwszym podejściu użyłem ważonej skalaryzacji minimaksowej:
-$$\min\max\set{\lambda_1\cdot\mathbb{E}(\text{Koszt}), \lambda_2\cdot\text{Ryzyko}}$$
+$$\min\max\{\lambda_1\cdot\mathbb{E}(\text{Koszt}), \lambda_2\cdot\text{Ryzyko}\}$$
 W przeciwieństwie do np. średniej ważonej, umożliwia ona uzyskanie wszystkich rozwiązań efektywnych. Wzór można dodatkowo uprościć (bez wpływu na zbiór rozwiązań), skalując wektor ocen przez stałą $\frac{1}{\lambda_1}$. Skalaryzacja ta jest jednak niemonotoniczna (uwzględnia tylko najwyższą z ocen), a więc może generować rozwiązania nieefektywne. Dlatego zastosowałem regularyzację funkcją sumy:
 
-$$\text{lexmin}\set{\max\set{\mathbb{E}(\text{Koszt}), \lambda\cdot\text{Ryzyko}}, \mathbb{E}(\text{Koszt})+\text{Ryzyko}}$$
+$$\text{lexmin}\{\max\{\mathbb{E}(\text{Koszt}), \lambda\cdot\text{Ryzyko}\}, \mathbb{E}(\text{Koszt})+\text{Ryzyko}\}$$
 
 Jako ostatni krok, operator $\text{lexmin}$ przybliżyłem sumą z wagą $\epsilon$, aby powstałe zadanie optymalizacji było liniowe:
 
-$$\text{min}\max\set{\mathbb{E}(\text{Koszt})\lambda\cdot\text{Ryzyko}} + \epsilon(\mathbb{E}(\text{Koszt})+\text{Ryzyko})$$
+$$\text{min}\max\{\mathbb{E}(\text{Koszt})\lambda\cdot\text{Ryzyko}\} + \epsilon(\mathbb{E}(\text{Koszt})+\text{Ryzyko})$$
 
 Aby obliczyć wartości ryzyka, wygenerowałem 50 potencjalnych scenariuszy (wartości zmiennej losowej $\textbf{R}$) (plik `generate_zad2_data.R`).
 
@@ -185,8 +188,9 @@ S\ge\mathbb{E}(K) \\
 
 Przedstawiony wyżej model zaimplementowałem w plikach AMPL `zad2.mod`, `projekt.dat`, `zad2ab.dat`, `zad2ab.run`.
 
-Następnie za pomocą solvera CPLEX znalazłem rozwiązania dla parametrów $\lambda$ ze zbioru $\set{0, 100, 200...15000}$. Wyniki przedstawiłem w przestrzeni ryzyko-koszt (plik `draw_cost_vs_risk.r`):
-![cost_vs_risk](ryzyko-koszt.png)
+Następnie za pomocą solvera CPLEX znalazłem rozwiązania dla parametrów $\lambda$ ze zbioru $\{0, 100, 200...15000\}$. Wyniki przedstawiłem w przestrzeni ryzyko-koszt (plik `draw_cost_vs_risk.r`):
+
+![Obraz zbioru rozwiązań efektywnych w przestrzeni ryzyko-koszt](ryzyko-koszt.png)
 
 Kształt wykresu wskazuje, że wszystkie wygenerowane rozwiązania są efektywne -- żadne rozwiązanie nie dominuje innego. 
 
@@ -203,18 +207,24 @@ Zastosowana miara ryzyka i skalaryzacja gwarantują, że wygenerowane rozwiązan
 Wygenerowane rozwiązania mogą jednak być zdominowane w sensie dominacji stochastycznej pierwszego (lub wyższego) rzędu. W celu sprawdzenia występowania dominacji FSD można porównać wzajemne położenie dystrybuant.
 
 Do analizy wykorzystałem następujące rozwiązania:
- * <font color="#0000FF">A</font>$\:=(2432, 802563)$ dla $\lambda=0$
- * <font color="#00FF00">B</font>$\:=(803, 803315)$ dla $\lambda=1000$
- * <font color="#FF0000">C</font>$\:=(353, 812622)$ dla $\lambda=2300$
+
+ * $A =(2432, 802563)$ dla $\lambda=0$
+ * $B =(803, 803315)$ dla $\lambda=1000$
+ * $C =(353, 812622)$ dla $\lambda=2300$
  
 W celu zwiększenia rozdzielczości wykresu wygenerowałem 1000 scenariuszy (plik `generate_zad2c_data.r`). Następnie rozwiązałem model dla wybranych parametrów, zapisując do plików koszty dla poszczególnych scenariuszy (plik `zad2c.run`). Skryptem `draw_cdf.r` wyznaczyłem i zaznaczyłem na wykresie dystrybuanty kosztu:
-![dystrybuanty](dystrybuanty.png)
+
+\pagebreak
+
+![Dystrybuanty kosztu dla wybranych rozwiązań](dystrybuanty.png)
 
 Aby zmienna losowa $Y'$ dominowała w sensie FSD $Y''$, muszą zajść dwa warunki:
+
  1. $\forall k\quad F_{Y'}(k) \ge F_{Y''}(k)$
- 2. $\exists k\quad F_{Y'}(k) \gt F_{Y''}(k)$
+ 2. $\exists k\quad F_{Y'}(k) > F_{Y''}(k)$
 
 A więc:
+
 * $A \succ_{FSD} C$ - np. dla $k=810000$ dystrybuanta A jest ściśle większa, dla pozostałych $k$ nie mniejsza
 * $B \succ_{FSD} C$ - jak wyżej
 * $A$ jest nieporównywalne z $B$ w sensie FSD - wykresy dystrybuant się przecinają, więc nie jest spełniony warunek 1.
