@@ -59,6 +59,8 @@ subject to dostepnosc_przeciazonych_gen{godz in GODZINY, typ in TYPY}:
 subject to zmiana_liczby_pracujacych_gen{godz in GODZINY, typ in TYPY}:
     pracujace[godz, typ] = pracujace[prev(godz),typ] + uruchomienia[godz, typ] - wylaczenia[godz, typ];
 
+# --- ZADANIE 2 ---
+
 var koszt{s in SCENARIUSZE} = 
     sum{godz in GODZINY, typ in TYPY} (
         + uruchomienia[godz, typ] * koszt_uruchomienia[typ] # jednorazowe koszty uruchomienia

@@ -4,8 +4,8 @@ option solver_msg 0;
 
 model zad2.mod;
 data projekt.dat;
-data zad2_1000.dat;
-param filename := "dystrybuanta_"&lambda&".csv" symbolic;
+data zad2c.dat;
+param filename := "koszty_"&lambda&".csv" symbolic;
 let lambda := 15000;
 solve;
 printf "cost\n" > (filename);
