@@ -102,7 +102,7 @@ Powyższy model zaimplementowałem w języku AMPL (pliki `zad1.mod`, `projekt.da
 
 Poniżej przedstawiłem wykres rozkładu obciążenia $o_{gt}$ w ciągu doby: 
 
-![chart](obc_vs_godzina.png)
+![chart](godzina-obciazenie.png)
 
 Większość obciążenia jest pokryta przez generatory T1. Jest to uzasadnione tym, że cechują się one najtańszą ceną zł/MW przy minimalnym obciążeniu. Wysoki koszt uruchomienia nie ma dużego znaczenia, bo działają one całą dobę bez przerwy. Dopiero gdy skończyły się dostępne generatory T1, uruchomione zostały T2 i T3.
 
@@ -218,6 +218,3 @@ A więc:
 * $A \succ_{FSD} C$ - np. dla $k=810000$ dystrybuanta A jest ściśle większa, dla pozostałych $k$ nie mniejsza
 * $B \succ_{FSD} C$ - jak wyżej
 * $A$ jest nieporównywalne z $B$ w sensie FSD - wykresy dystrybuant się przecinają, więc nie jest spełniony warunek 1.
-
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-<script type="text/x-mathjax-config"> MathJax.Hub.Config({ tex2jax: {inlineMath: [['$', '$']]}, messageStyle: "none" });</script>
